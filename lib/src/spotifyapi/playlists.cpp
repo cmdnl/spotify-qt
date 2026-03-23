@@ -50,8 +50,8 @@ void lib::spt::api::playlist_tracks(const spt::playlist &playlist,
 			break;
 
 		default:
-			callback(Result<page<spt::track>>::fail(QStringLiteral("Unknown playlist version")));
-			return;
+			endpoint = "items";
+			break;
 	}
 
 	const std::string url = fmt::format("playlists/{}/{}?market=from_token&limit=50",
