@@ -53,13 +53,13 @@ void lib::spt::api::playlist_tracks(const lib::spt::playlist &playlist,
 	const char *endpoint;
 	switch (playlist.version)
 	{
-		case PlaylistVersion::Version1:
-			endpoint = "tracks";
+		case PlaylistVersion::Version2:
+			endpoint = "items";
 			break;
 
-		case PlaylistVersion::Version2:
+		case PlaylistVersion::Version1:
 		default:
-			endpoint = "items";
+			endpoint = "tracks";
 			break;
 	}
 
