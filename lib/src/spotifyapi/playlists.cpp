@@ -43,7 +43,7 @@ void lib::spt::api::edit_playlist(const std::string &playlist_id,
 void lib::spt::api::playlist_tracks(const lib::spt::playlist &playlist,
 	ApiCallback<std::vector<lib::spt::track>> &callback)
 {
-	const auto url = lib::fmt::format("playlists/{}/tracks?limit=50", playlist.id);
+	const auto url = lib::fmt::format("playlists/{}/tracks?market=from_token&limit=50", playlist.id);
 	get_items(url, callback);
 }
 
@@ -53,17 +53,17 @@ void lib::spt::api::playlist_tracks(const lib::spt::playlist &playlist,
 	const char *endpoint;
 	switch (playlist.version)
 	{
-		case PlaylistVersion::Version2:
-			endpoint = "items";
+		case PlaylistVersion::Version1:
+			endpoint = "tracks";
 			break;
 
-		case PlaylistVersion::Version1:
+		case PlaylistVersion::Version2:
 		default:
-			endpoint = "tracks";
+			endpoint = "items";
 			break;
 	}
 
-	const std::string url = fmt::format("playlists/{}/{}?limit=50",
+	const std::string url = fmt::format("playlists/{}/{}?market=from_token&limit=50",
 		playlist.id, endpoint);
 
 	request.get_page<lib::spt::track>(url, std::string(), callback);
